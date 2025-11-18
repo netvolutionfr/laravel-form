@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/opt/homebrew/Cellar/php/8.4.14_1/bin/php",
+            "args": [
+                "/Users/stanis/Sites/StJo/laravel-form/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
