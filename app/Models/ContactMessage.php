@@ -17,5 +17,16 @@ class ContactMessage extends Model
         'name',
         'email',
         'message',
+        'consent',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'consent' => 'bool',
+        ];
+    }
 }

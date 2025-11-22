@@ -25,7 +25,10 @@ class ContactController extends Controller
 
     public function store(ContactFormRequest $request): RedirectResponse
     {
-        ContactMessage::create($request->validated());
+        ContactMessage::create([
+            ...$request->validated(),
+            'consent' => $request->boolean('consent'),
+        ]);
 
         return back()->with('status', 'Votre message a bien été envoyé.');
     }

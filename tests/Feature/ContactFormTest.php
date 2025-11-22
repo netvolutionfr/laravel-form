@@ -2,6 +2,7 @@
 
 use App\Models\ContactMessage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -17,6 +18,7 @@ test('les champs sont obligatoires', function (): void {
         'name',
         'email',
         'message',
+        'consent',
     ]);
 });
 
@@ -25,12 +27,22 @@ test('le formulaire accepte des données valides', function (): void {
         'name' => 'Marie Dupont',
         'email' => 'marie@example.com',
         'message' => 'Bonjour, ceci est un premier message de contact.',
+        'consent' => true,
     ])->assertSessionHasNoErrors()->assertSessionHas('status');
 
     assertDatabaseHas('contact_messages', [
         'name' => 'Marie Dupont',
         'email' => 'marie@example.com',
+        'consent' => true,
     ]);
+});
+
+test('le consentement est requis pour envoyer le formulaire', function (): void {
+    post(route('contact.store'), [
+        'name' => 'Marie Dupont',
+        'email' => 'marie@example.com',
+        'message' => 'Bonjour, ceci est un premier message de contact.',
+    ])->assertSessionHasErrors(['consent']);
 });
 
 test('la page des messages affiche toutes les demandes', function (): void {

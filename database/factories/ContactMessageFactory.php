@@ -20,6 +20,7 @@ class ContactMessageFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'message' => fake()->paragraph(),
+            'consent' => true,
         ];
     }
 }

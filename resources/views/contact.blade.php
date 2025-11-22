@@ -51,6 +51,21 @@
                 font-weight: 600;
             }
 
+            label.consent {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            label.consent span {
+                font-weight: 500;
+                color: #1e293b;
+            }
+
+            label.consent input {
+                margin-top: 0.4rem;
+            }
+
             input,
             textarea {
                 border: 1px solid #cbd5f5;
@@ -126,6 +141,7 @@
             @endif
 
             <form action="{{ route('contact.store') }}" method="POST" novalidate>
+                @csrf
                 <label>
                     Nom complet
                     <input type="text" name="name" value="{{ old('name') }}" required>
@@ -139,6 +155,13 @@
                 <label>
                     Message
                     <textarea name="message" required>{{ old('message') }}</textarea>
+                </label>
+
+                <label class="consent">
+                    <input type="checkbox" name="consent" value="1" {{ old('consent') ? 'checked' : '' }} required>
+                    <span>
+                        J'accepte que mes informations soient utilisées pour recevoir une réponse conformément à la réglementation RGPD.
+                    </span>
                 </label>
 
                 <button type="submit">Envoyer</button>
